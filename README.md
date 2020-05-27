@@ -13,12 +13,12 @@ cd Python-Adventure-Game
 
 Open up a new terminal window and run the command:
 
-'''
+```
 python adventure_game.py
-'''
+```
 or
-'''
+```
 python3 adventure_game.py
-'''
+```
 
 Please feel free to modify the code to your liking.
