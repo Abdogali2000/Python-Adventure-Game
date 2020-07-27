@@ -12,6 +12,10 @@ This project is a very short and simple text-based game with a couple of choices
 * The game has conditions for winning and losing.
 * When the game is over, it asks the player if he/she wants to play again.
 
+## What technologies did you use in making this game?
+
+I have used Python in making this text-based game. An understanding of functional programming was also helpful when I made this game.
+
 ## Installation
 
 In order to play the game, clone the repository to your computer:
