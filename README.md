@@ -36,3 +36,7 @@ python3 adventure_game.py
 ```
 
 Please feel free to modify the code to your liking.
+
+## License
+
+This project is licensed under GPL v2 as of the time of this writing.
