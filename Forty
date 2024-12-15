@@ -1,0 +1,97 @@
+import pygame
+import sys
+
+# تهيئة مكتبة Pygame
+pygame.init()
+
+# إعداد الشاشة
+WIDTH, HEIGHT = 800, 600
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("لعبة مغامرات الغابة")
+
+# ألوان
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+GREEN = (0, 200, 0)
+RED = (200, 0, 0)
+
+# اللاعب
+player_size = 50
+player_x, player_y = 100, HEIGHT - player_size - 10
+player_velocity = 5
+
+# العقبات
+obstacle_width, obstacle_height = 50, 50
+obstacle_x, obstacle_y = 600, HEIGHT - obstacle_height - 10
+obstacle_velocity = 7
+
+# الكنز
+treasure_width, treasure_height = 50, 50
+treasure_x, treasure_y = WIDTH - 100, HEIGHT - treasure_height - 10
+
+# إعداد الساعة
+clock = pygame.time.Clock()
+
+# اللعبة
+running = True
+won = False
+
+# تحميل الصور (اختياري: أضف صورك هنا)
+# player_image = pygame.image.load("player.png")
+# obstacle_image = pygame.image.load("obstacle.png")
+# treasure_image = pygame.image.load("treasure.png")
+
+while running:
+    screen.fill(WHITE)
+
+    # رسم اللاعب
+    pygame.draw.rect(screen, GREEN, (player_x, player_y, player_size, player_size))
+
+    # رسم العقبات
+    pygame.draw.rect(screen, RED, (obstacle_x, obstacle_y, obstacle_width, obstacle_height))
+
+    # رسم الكنز
+    pygame.draw.rect(screen, BLACK, (treasure_x, treasure_y, treasure_width, treasure_height))
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    # حركة اللاعب
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_LEFT] and player_x > 0:
+        player_x -= player_velocity
+    if keys[pygame.K_RIGHT] and player_x < WIDTH - player_size:
+        player_x += player_velocity
+    if keys[pygame.K_UP] and player_y > 0:
+        player_y -= player_velocity
+    if keys[pygame.K_DOWN] and player_y < HEIGHT - player_size:
+        player_y += player_velocity
+
+    # حركة العقبات
+    obstacle_x -= obstacle_velocity
+    if obstacle_x < 0:
+        obstacle_x = WIDTH
+
+    # التصادم
+    player_rect = pygame.Rect(player_x, player_y, player_size, player_size)
+    obstacle_rect = pygame.Rect(obstacle_x, obstacle_y, obstacle_width, obstacle_height)
+    treasure_rect = pygame.Rect(treasure_x, treasure_y, treasure_width, treasure_height)
+
+    if player_rect.colliderect(obstacle_rect):
+        print("لقد اصطدمت بعقبة! اللعبة انتهت.")
+        running = False
+
+    if player_rect.colliderect(treasure_rect):
+        print("مبروك! لقد حصلت على الكنز!")
+        won = True
+        running = False
+
+    pygame.display.update()
+    clock.tick(30)
+
+pygame.quit()
+if won:
+    print("انتصرت!")
+else:
+    print("حاول مجددًا!")
